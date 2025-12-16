@@ -237,6 +237,10 @@ microservices-ecommerce/
 - Monorepo structure for code sharing
 - Scalable and maintainable codebase
 - Modern UI/UX with responsive design
+- Docker containerization for all services
+- CI/CD pipeline with GitHub Actions
+- Comprehensive testing setup with Vitest
+- Code quality tools (ESLint, Prettier, CodeRabbit)
 
 ## Development Guidelines
 
@@ -252,9 +256,13 @@ microservices-ecommerce/
 - Feature-based branch strategy
 
 ### Testing
+- Run all tests: `pnpm test`
+- Run tests in watch mode: `pnpm test:watch`
+- Run tests with coverage: `pnpm test:coverage`
 - Type checking: `pnpm check-types`
 - Linting: `pnpm lint`
 - Formatting: `pnpm format`
+- Check formatting: `pnpm format:check`
 
 ## Environment Variables
 
@@ -293,6 +301,132 @@ Refer to individual service documentation for complete environment variable requ
 - `GET /api/user` - Get user information
 - `POST /api/user` - Create user
 
+## Docker
+
+### Building Docker Images
+
+Build individual service images:
+```bash
+docker build -f apps/product-service/Dockerfile -t product-service .
+docker build -f apps/auth-service/Dockerfile -t auth-service .
+# ... and so on for other services
+```
+
+### Running with Docker Compose
+
+Start all services with Docker Compose:
+```bash
+docker-compose up -d
+```
+
+This will start:
+- PostgreSQL database
+- MongoDB database
+- Kafka cluster (3 brokers)
+- Kafka UI
+- All backend services
+- Frontend applications
+
+Stop all services:
+```bash
+docker-compose down
+```
+
+View logs:
+```bash
+docker-compose logs -f [service-name]
+```
+
+### Docker Compose Services
+
+- `postgres` - PostgreSQL database (port 5432)
+- `mongodb` - MongoDB database (port 27017)
+- `kafka-broker-1/2/3` - Kafka brokers (ports 9094-9096)
+- `kafka-ui` - Kafka management UI (port 8080)
+- `product-service` - Product service (port 8000)
+- `auth-service` - Auth service (port 8003)
+- `order-service` - Order service (port 8001)
+- `payment-service` - Payment service (port 8002)
+- `email-service` - Email service
+- `client` - Client application (port 3002)
+- `admin` - Admin dashboard (port 3003)
+
+## CI/CD
+
+The project includes GitHub Actions workflows for continuous integration and deployment:
+
+### Workflows
+
+- **CI** (`.github/workflows/ci.yml`): Runs on every push and pull request
+  - Linting and type checking
+  - Running tests
+  - Building all packages
+  - Code quality checks
+
+- **Docker Build** (`.github/workflows/docker-build.yml`): Builds and tests Docker images
+  - Builds Docker images for all services
+  - Tests image builds
+  - Runs on main branch and version tags
+
+- **Code Quality** (`.github/workflows/code-quality.yml`): Ensures code quality standards
+  - ESLint checks
+  - TypeScript validation
+  - Prettier formatting checks
+  - Test execution
+
+### Running CI Locally
+
+You can run CI checks locally:
+```bash
+pnpm lint
+pnpm check-types
+pnpm format:check
+pnpm test
+pnpm build
+```
+
+## Testing
+
+The project uses Vitest for testing across all services.
+
+### Running Tests
+
+- Run all tests: `pnpm test`
+- Run tests in watch mode: `pnpm test:watch`
+- Run tests with coverage: `pnpm test:coverage`
+
+### Test Structure
+
+Each service includes:
+- Vitest configuration
+- Example test files
+- Test utilities and helpers
+
+### Coverage
+
+Test coverage reports are generated in the `coverage/` directory for each service. Coverage includes:
+- Unit tests
+- Integration tests
+- API endpoint tests
+
+## Code Quality
+
+### Tools
+
+- **ESLint**: Code linting and style enforcement
+- **Prettier**: Code formatting
+- **TypeScript**: Type checking
+- **CodeRabbit**: Automated code review (configured via `.coderabbit.yaml`)
+- **Vitest**: Testing framework
+
+### Pre-commit Checks
+
+Before committing, ensure:
+- Code passes linting: `pnpm lint`
+- Types are valid: `pnpm check-types`
+- Formatting is correct: `pnpm format:check`
+- Tests pass: `pnpm test`
+
 ## Kafka Topics
 
 The system uses the following Kafka topics for event-driven communication:
@@ -303,12 +437,16 @@ The system uses the following Kafka topics for event-driven communication:
 
 ## Contributing
 
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+
 This project follows standard software development practices:
 
 1. Create a feature branch for new work
 2. Make progressive commits with clear messages
 3. Ensure code passes linting and type checking
-4. Test thoroughly before submitting
+4. Write tests for new features
+5. Test thoroughly before submitting
+6. Follow the pull request template
 
 ## License
 

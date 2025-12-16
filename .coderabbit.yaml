@@ -1,0 +1,45 @@
+language: en
+reviews:
+  path_filters:
+    - "**/*.ts"
+    - "**/*.tsx"
+    - "**/*.js"
+    - "**/*.jsx"
+    - "**/*.json"
+    - "**/*.yaml"
+    - "**/*.yml"
+  high_level_summary: true
+  poem: false
+  review_status: true
+  collapse_walkthrough: true
+  path_filters_ignore:
+    - "**/*.lock"
+    - "**/node_modules/**"
+    - "**/dist/**"
+    - "**/build/**"
+    - "**/.next/**"
+    - "**/generated/**"
+    - "**/coverage/**"
+  themes:
+    - name: "Code Quality"
+      description: "Review code quality, best practices, and maintainability"
+    - name: "Security"
+      description: "Review security vulnerabilities and best practices"
+    - name: "Performance"
+      description: "Review performance optimizations and bottlenecks"
+    - name: "Testing"
+      description: "Review test coverage and quality"
+  rules:
+    - name: "TypeScript Best Practices"
+      description: "Ensure TypeScript best practices are followed"
+    - name: "Error Handling"
+      description: "Ensure proper error handling is implemented"
+    - name: "Security Vulnerabilities"
+      description: "Identify potential security issues"
+    - name: "Performance Issues"
+      description: "Identify performance bottlenecks"
+    - name: "Code Duplication"
+      description: "Identify code duplication opportunities"
+    - name: "Documentation"
+      description: "Ensure code is properly documented"
+

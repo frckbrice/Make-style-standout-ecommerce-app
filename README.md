@@ -1,6 +1,6 @@
 # Microservices E-Commerce Platform
 
-A modern, scalable e-commerce platform built with a microservices architecture. This project demonstrates enterprise-level software development practices, featuring a monorepo structure, event-driven communication, and comprehensive full-stack implementation.
+A modern, scalable e-commerce platform built with a microservices architecture. This project demonstrates enterprise-level software development practices, featuring a **monorepo structure**, event-driven communication, and comprehensive full-stack implementation.
 
 ## Overview
 

@@ -14,51 +14,17 @@ The project uses a Turborepo monorepo structure with pnpm workspaces, enabling e
 
 ### Services
 
-#### Frontend Applications
+#### Applications
 
-- **Client Application** (`apps/client`): Next.js 15 customer-facing e-commerce application
-  - Product catalog with search and filtering
-  - Shopping cart functionality
-  - Stripe payment integration
-  - User authentication and order management
-  - Responsive design with Tailwind CSS
-
-- **Admin Dashboard** (`apps/admin`): Next.js 15 administrative interface
-  - Product, category, and user management
-  - Order tracking and analytics
-  - Data visualization with charts and graphs
-  - Role-based access control
-
-#### Backend Services
-
-- **Auth Service** (`apps/auth-service`): Express-based authentication service
-  - User authentication and authorization
-  - Clerk integration for secure authentication
-  - Kafka event publishing for user lifecycle events
-
-- **Product Service** (`apps/product-service`): Express-based product management
-  - RESTful API for products and categories
-  - Prisma ORM with PostgreSQL
-  - Product CRUD operations
-  - Category management
-
-- **Order Service** (`apps/order-service`): Fastify-based order processing
-  - Order creation and management
-  - MongoDB integration for order persistence
-  - Kafka event subscriptions
-  - Order status tracking
-
-- **Payment Service** (`apps/payment-service`): Hono-based payment processing
-  - Stripe integration for payment processing
-  - Checkout session management
-  - Webhook handling for payment events
-  - Payment status notifications
-
-- **Email Service** (`apps/email-service`): Email notification service
-  - Nodemailer integration
-  - Kafka consumer for event-driven emails
-  - Welcome emails for new users
-  - Order confirmation emails
+| App | Type | Port | Purpose | Documentation |
+| --- | --- | --- | --- | --- |
+| [Client](apps/client) | Frontend (Next.js) | 3002 | Customer storefront with product browsing, cart, checkout, and orders | [apps/client/README.md](apps/client/README.md) |
+| [Admin](apps/admin) | Frontend (Next.js) | 3003 | Administrative dashboard for products, categories, users, and analytics | [apps/admin/README.md](apps/admin/README.md) |
+| [Auth Service](apps/auth-service) | Backend (Express) | 8003 | Authenticated user administration and identity integration | [apps/auth-service/README.md](apps/auth-service/README.md) |
+| [Product Service](apps/product-service) | Backend (Express) | 8000 | Product and category APIs with event-driven integration | [apps/product-service/README.md](apps/product-service/README.md) |
+| [Order Service](apps/order-service) | Backend (Fastify) | 8001 | Order lifecycle management and order events | [apps/order-service/README.md](apps/order-service/README.md) |
+| [Payment Service](apps/payment-service) | Backend (Hono) | 8002 | Stripe checkout sessions, payment status, and webhooks | [apps/payment-service/README.md](apps/payment-service/README.md) |
+| [Email Service](apps/email-service) | Backend (Node.js) | N/A | Event-driven transactional emails for users and orders | [apps/email-service/README.md](apps/email-service/README.md) |
 
 #### Shared Packages
 

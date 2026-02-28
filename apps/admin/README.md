@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Admin App
 
-## Getting Started
+## Overview
+The Admin app is the internal dashboard for managing the e-commerce platform. It provides authenticated interfaces to manage products, categories, users, and order analytics.
 
-First, run the development server:
+## Tech Stack
+- Next.js 15 (App Router)
+- React 19
+- Clerk authentication
+- TanStack Query and TanStack Table
+- Tailwind CSS and Radix UI
+- Vitest and Testing Library
+
+## Run Locally
+From the monorepo root:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
+pnpm --filter admin dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Admin app runs on `http://localhost:3003`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
+- `pnpm --filter admin dev` - start local development server
+- `pnpm --filter admin build` - create production build
+- `pnpm --filter admin start` - start production server
+- `pnpm --filter admin lint` - run linter
+- `pnpm --filter admin check-types` - run TypeScript checks
+- `pnpm --filter admin test` - run unit tests
+- `pnpm --filter admin test:watch` - run tests in watch mode
+- `pnpm --filter admin test:coverage` - generate test coverage
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Environment Variables
+- `NEXT_PUBLIC_AUTH_SERVICE_URL` - Auth service base URL
+- `NEXT_PUBLIC_PRODUCT_SERVICE_URL` - Product service base URL
+- `NEXT_PUBLIC_ORDER_SERVICE_URL` - Order service base URL
+- `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME` - Cloudinary cloud name for image uploads
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Related Services
+- Auth Service (`apps/auth-service`)
+- Product Service (`apps/product-service`)
+- Order Service (`apps/order-service`)

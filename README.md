@@ -416,9 +416,10 @@ This project follows standard software development practices:
 
 ## License
 
-This project is private and proprietary.
+MIT
 
 ## Contact
 
 For questions or inquiries about this project, please contact the repository maintainer.
+**Developer**: **https://maebrieporfolio.vercel.app**
 

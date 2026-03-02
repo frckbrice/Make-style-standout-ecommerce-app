@@ -33,6 +33,8 @@ Client app runs on `http://localhost:3002`.
 - `pnpm --filter client test:coverage` - generate test coverage
 
 ## Environment Variables
+- `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` - Clerk publishable key (required for build/runtime)
+- `CLERK_SECRET_KEY` - Clerk secret key (required for server auth)
 - `NEXT_PUBLIC_PRODUCT_SERVICE_URL` - Product service base URL
 - `NEXT_PUBLIC_ORDER_SERVICE_URL` - Order service base URL
 - `NEXT_PUBLIC_PAYMENT_SERVICE_URL` - Payment service base URL

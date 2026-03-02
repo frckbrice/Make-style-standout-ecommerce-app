@@ -26,20 +26,33 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const clerkPublishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+  const isClerkEnabled =
+    typeof clerkPublishableKey === "string" &&
+    /^(pk_test_|pk_live_)/.test(clerkPublishableKey);
+
+  const appLayout = (
+    <html lang="en">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <div className="mx-auto p-4 sm:px-0 sm:max-w-xl md:max-w-2xl lg:max-w-3xl xl:max-w-6xl">
+          <Navbar />
+          {children}
+          <Footer />
+        </div>
+        <ToastContainer position="bottom-right" />
+      </body>
+    </html>
+  );
+
+  if (!isClerkEnabled) {
+    return appLayout;
+  }
+
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          <div className="mx-auto p-4 sm:px-0 sm:max-w-xl md:max-w-2xl lg:max-w-3xl xl:max-w-6xl">
-            <Navbar />
-            {children}
-            <Footer />
-          </div>
-          <ToastContainer position="bottom-right" />
-        </body>
-      </html>
+    <ClerkProvider publishableKey={clerkPublishableKey}>
+      {appLayout}
     </ClerkProvider>
   );
 }

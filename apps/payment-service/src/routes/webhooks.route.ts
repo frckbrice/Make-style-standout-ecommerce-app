@@ -5,6 +5,7 @@ import { producer } from "../utils/kafka";
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET as string;
 const webhookRoute = new Hono();
+const isDevelopment = process.env.NODE_ENV !== "production";
 
 webhookRoute.get("/", (c) => {
   return c.json({
@@ -24,7 +25,7 @@ webhookRoute.post("/stripe", async (c) => {
   try {
     event = stripe.webhooks.constructEvent(body, sig!, webhookSecret);
   } catch (error) {
-    console.log("Webhook verification failed!");
+    if (isDevelopment) console.log("Webhook verification failed!");
     return c.json({ error: "Webhook verification failed!" }, 400);
   }
 

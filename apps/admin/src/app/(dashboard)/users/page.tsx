@@ -2,6 +2,8 @@ import { auth, type User } from "@clerk/nextjs/server";
 import { columns } from "./columns";
 import { DataTable } from "./data-table";
 
+const isDevelopment = process.env.NODE_ENV !== "production";
+
 const getData = async (): Promise<{ data: User[]; totalCount: number }> => {
   const { getToken } = await auth();
   const token = await getToken();
@@ -17,7 +19,7 @@ const getData = async (): Promise<{ data: User[]; totalCount: number }> => {
     const data = await res.json();
     return data;
   } catch (err) {
-    console.log(err);
+    if (isDevelopment) console.log(err);
     return { data: [], totalCount: 0 };
   }
 };

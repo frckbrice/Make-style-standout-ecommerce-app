@@ -1,11 +1,13 @@
 import type { Kafka, Consumer } from "kafkajs";
 
+const isDevelopment = process.env.NODE_ENV !== "production";
+
 export const createConsumer = (kafka: Kafka, groupId: string) => {
   const consumer: Consumer = kafka.consumer({ groupId });
 
   const connect = async () => {
     await consumer.connect();
-    console.log("Kafka consumer connected:" + groupId);
+    if (isDevelopment) console.log("Kafka consumer connected:" + groupId);
   };
 
   const subscribe = async (
@@ -31,7 +33,7 @@ export const createConsumer = (kafka: Kafka, groupId: string) => {
             }
           }
         } catch (error) {
-          console.log("Error processing message", error);
+          if (isDevelopment) console.error("Error processing message", error);
         }
       },
     });

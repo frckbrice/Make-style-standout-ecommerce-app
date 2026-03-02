@@ -5,6 +5,7 @@ import { CartItemsType } from "@repo/types";
 import { getStripeProductPrice } from "../utils/stripeProduct";
 
 const sessionRoute = new Hono();
+const isDevelopment = process.env.NODE_ENV !== "production";
 
 sessionRoute.post("/create-checkout-session", shouldBeUser, async (c) => {
   const { cart }: { cart: CartItemsType } = await c.req.json();
@@ -40,7 +41,7 @@ sessionRoute.post("/create-checkout-session", shouldBeUser, async (c) => {
 
     return c.json({ checkoutSessionClientSecret: session.client_secret });
   } catch (error) {
-    console.log(error);
+    if (isDevelopment) console.log(error);
     return c.json({ error });
   }
 });

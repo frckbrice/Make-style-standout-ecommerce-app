@@ -7,6 +7,7 @@ import { consumer, producer } from "./utils/kafka.js";
 import { runKafkaSubscriptions } from "./utils/subscriptions.js";
 
 const fastify = Fastify();
+const isDevelopment = process.env.NODE_ENV !== "production";
 
 fastify.register(Clerk.clerkPlugin);
 
@@ -36,9 +37,9 @@ const start = async () => {
     ]);
     await runKafkaSubscriptions();
     await fastify.listen({ port: 8001 });
-    console.log("Order service is running on port 8001");
+    if (isDevelopment) console.log("Order service is running on port 8001");
   } catch (err) {
-    console.log(err);
+    if (isDevelopment) console.log(err);
     process.exit(1);
   }
 };

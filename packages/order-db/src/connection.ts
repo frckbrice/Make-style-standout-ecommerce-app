@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 let isConnected = false;
+const isDevelopment = process.env.NODE_ENV !== "production";
 
 export const connectOrderDB = async () => {
   if (isConnected) return;
@@ -12,9 +13,9 @@ export const connectOrderDB = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URL);
     isConnected = true;
-    console.log("Connected to MongoDB");
+    //console.log("Connected to MongoDB");
   } catch (error) {
-    console.log(error);
+    if (isDevelopment) console.log(error);
     throw error;
   }
 };

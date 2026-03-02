@@ -35,6 +35,8 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useAuth } from "@clerk/nextjs";
 
+const isDevelopment = process.env.NODE_ENV !== "production";
+
 // const categories = [
 //   "T-shirts",
 //   "Shoes",
@@ -357,7 +359,7 @@ const AddProduct = () => {
                                         });
                                       }
                                     } catch (error) {
-                                      console.log(error);
+                                      if (isDevelopment) console.log(error);
                                       toast.error("Upload failed!");
                                     }
                                   }

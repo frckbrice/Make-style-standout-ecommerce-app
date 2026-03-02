@@ -3,6 +3,8 @@ import { columns } from "./columns";
 import { DataTable } from "./data-table";
 import { OrderType } from "@repo/types";
 
+const isDevelopment = process.env.NODE_ENV !== "production";
+
 const getData = async (): Promise<OrderType[]> => {
   try {
     const { getToken } = await auth();
@@ -18,7 +20,7 @@ const getData = async (): Promise<OrderType[]> => {
     const data = await res.json();
     return data;
   } catch (err) {
-    console.log(err);
+    if (isDevelopment) console.log(err);
     return [];
   }
 };

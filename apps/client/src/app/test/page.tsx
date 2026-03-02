@@ -1,10 +1,12 @@
 import { auth } from "@clerk/nextjs/server";
 
+const isDevelopment = process.env.NODE_ENV !== "production";
+
 const TestPage = async () => {
   const { getToken } = await auth();
   const token = await getToken();
 
-  console.log(token)
+  if (isDevelopment) console.log(token)
 
   // const resProduct = await fetch("http://localhost:8000/test", {
   //   headers: {

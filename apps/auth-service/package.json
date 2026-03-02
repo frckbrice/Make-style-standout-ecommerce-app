@@ -12,7 +12,7 @@
     "test:coverage": "vitest run --coverage"
   },
   "keywords": [],
-  "author": "",
+  "author": "Avom Brice",
   "license": "ISC",
   "dependencies": {
     "@clerk/express": "^1.7.30",

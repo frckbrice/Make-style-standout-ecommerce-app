@@ -2,6 +2,8 @@ import { Order } from "@repo/order-db";
 import { OrderType } from "@repo/types";
 import { producer } from "./kafka";
 
+const isDevelopment = process.env.NODE_ENV !== "production";
+
 export const createOrder = async (order: OrderType) => {
   const newOrder = new Order(order);
 
@@ -14,8 +16,8 @@ export const createOrder = async (order: OrderType) => {
         status: order.status,
       },
     });
-} catch (error) {
-    console.log(error);
+  } catch (error) {
+    if (isDevelopment) console.log(error);
     throw error;
   }
 };

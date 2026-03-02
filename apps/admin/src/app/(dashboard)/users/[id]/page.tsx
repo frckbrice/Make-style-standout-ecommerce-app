@@ -22,6 +22,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import AppLineChart from "@/components/AppLineChart";
 import { auth, User } from "@clerk/nextjs/server";
 
+const isDevelopment = process.env.NODE_ENV !== "production";
+
 const getData = async (id: string): Promise<User | null> => {
   const { getToken } = await auth();
   const token = await getToken();
@@ -37,7 +39,7 @@ const getData = async (id: string): Promise<User | null> => {
     const data = await res.json();
     return data;
   } catch (err) {
-    console.log(err);
+    if (isDevelopment) console.log(err);
     return null;
   }
 };

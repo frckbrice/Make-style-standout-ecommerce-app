@@ -1,6 +1,8 @@
 import { auth } from "@clerk/nextjs/server";
 import { OrderType } from "@repo/types";
 
+const isDevelopment = process.env.NODE_ENV !== "production";
+
 const fetchOrders = async () => {
   const { getToken } = await auth();
   const token = await getToken();
@@ -25,7 +27,7 @@ const OrdersPage = async () => {
     return <div className="">No orders found!</div>;
   }
 
-  console.log(orders);
+  if (isDevelopment) console.log(orders);
   return (
     <div className="">
       <h1 className="text-2xl my-4 font-medium">Your Orders</h1>
@@ -58,9 +60,9 @@ const OrdersPage = async () => {
               <span className="font-medium text-sm text-gray-500">
                 Products
               </span>
-              <p>{order.products?.map(product=> product.name).join(", ") || "-"}</p>
+              <p>{order.products?.map(product => product.name).join(", ") || "-"}</p>
             </div>
-            
+
           </li>
         ))}
       </ul>

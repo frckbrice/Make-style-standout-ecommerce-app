@@ -3,6 +3,7 @@ import { createConsumer, createKafkaClient } from "@repo/kafka";
 
 const kafka = createKafkaClient("email-service");
 const consumer = createConsumer(kafka, "email-service");
+const isDevelopment = process.env.NODE_ENV !== "production";
 
 const start = async () => {
   try {
@@ -31,14 +32,14 @@ const start = async () => {
             await sendMail({
               email,
               subject: "Order has been created",
-              text: `Hello! Your order: Amount: ${amount/100}, Status: ${status}`,
+              text: `Hello! Your order: Amount: ${amount / 100}, Status: ${status}`,
             });
           }
         },
       },
     ]);
   } catch (error) {
-    console.log(error);
+    if (isDevelopment) console.log(error);
   }
 };
 

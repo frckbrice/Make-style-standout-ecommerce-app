@@ -2,6 +2,8 @@ import { ProductsType } from "@repo/types";
 import { columns } from "./columns";
 import { DataTable } from "./data-table";
 
+const isDevelopment = process.env.NODE_ENV !== "production";
+
 const getData = async (): Promise<ProductsType> => {
   try {
     const res = await fetch(
@@ -10,7 +12,7 @@ const getData = async (): Promise<ProductsType> => {
     const data = await res.json();
     return data;
   } catch (error) {
-    console.log(error);
+    if (isDevelopment) console.log(error);
     return [];
   }
 };

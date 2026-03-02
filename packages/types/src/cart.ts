@@ -1,5 +1,7 @@
-import type { Product } from "@repo/product-db";
+import type { Prisma } from "@repo/product-db";
 import z from "zod";
+
+type Product = Prisma.ProductGetPayload<{}>;
 
 export type CartItemType = Product & {
   quantity: number;

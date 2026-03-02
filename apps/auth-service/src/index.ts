@@ -6,6 +6,7 @@ import userRoute from "./routes/user.route";
 import { producer } from "./utils/kafka.js";
 
 const app = express();
+const isDevelopment = process.env.NODE_ENV !== "production";
 app.use(
   cors({
     origin: ["http://localhost:3003"],
@@ -26,7 +27,7 @@ app.get("/health", (req: Request, res: Response) => {
 app.use("/users", shouldBeAdmin, userRoute);
 
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-  console.log(err);
+  if (isDevelopment) console.log(err);
   return res
     .status(err.status || 500)
     .json({ message: err.message || "Inter Server Error!" });
@@ -36,10 +37,10 @@ const start = async () => {
   try {
     await producer.connect();
     app.listen(8003, () => {
-      console.log("Auth service is running on 8003");
+      if (isDevelopment) console.log("Auth service is running on 8003");
     });
   } catch (error) {
-    console.log(error);
+    if (isDevelopment) console.log(error);
     process.exit(1);
   }
 };

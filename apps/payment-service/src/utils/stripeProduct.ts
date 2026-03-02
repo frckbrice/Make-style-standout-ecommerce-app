@@ -1,6 +1,8 @@
 import { StripeProductType } from "@repo/types";
 import stripe from "./stripe";
 
+const isDevelopment = process.env.NODE_ENV !== "production";
+
 export const createStripeProduct = async (item: StripeProductType) => {
   try {
     const res = await stripe.products.create({
@@ -13,7 +15,7 @@ export const createStripeProduct = async (item: StripeProductType) => {
     });
     return res;
   } catch (error) {
-    console.log(error);
+    if (isDevelopment) console.log(error);
     return error;
   }
 };
@@ -25,7 +27,7 @@ export const getStripeProductPrice = async (productId: number) => {
     });
     return res.data[0]?.unit_amount;
   } catch (error) {
-    console.log(error);
+    if (isDevelopment) console.log(error);
     return error;
   }
 };
@@ -35,7 +37,7 @@ export const deleteStripeProduct = async (productId: number) => {
     const res = await stripe.products.del(productId.toString());
     return res;
   } catch (error) {
-    console.log(error);
+    if (isDevelopment) console.log(error);
     return error;
   }
 };

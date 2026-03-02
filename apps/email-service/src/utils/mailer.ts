@@ -1,5 +1,7 @@
 import nodemailer from "nodemailer";
 
+const isDevelopment = process.env.NODE_ENV !== "production";
+
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
@@ -27,7 +29,7 @@ const sendMail = async ({
     text,
   });
 
-  console.log("MESSAGE SENT:", res);
+  if (isDevelopment) console.log("MESSAGE SENT:", res);
 };
 
 export default sendMail;

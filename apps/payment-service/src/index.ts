@@ -8,6 +8,7 @@ import { runKafkaSubscriptions } from "./utils/subscriptions.js";
 import webhookRoute from "./routes/webhooks.route.js";
 
 const app = new Hono();
+const isDevelopment = process.env.NODE_ENV !== "production";
 app.use("*", clerkMiddleware());
 app.use("*", cors({ origin: ["http://localhost:3002"] }));
 
@@ -53,11 +54,11 @@ const start = async () => {
         port: 8002,
       },
       (info) => {
-        console.log(`Payment service is running on port 8002`);
+        if (isDevelopment) console.log(`Payment service is running on port 8002`);
       }
     );
   } catch (error) {
-    console.log(error);
+    if (isDevelopment) console.log(error);
     process.exit(1);
   }
 };
